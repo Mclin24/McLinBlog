@@ -1,11 +1,24 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router'
-import Home from '../views/home.vue'
+import Home from '@/views/Home.vue'
+import ImageFall from '@/views/ImageFall.vue'
 
 const routes: Array<RouteRecordRaw> = [
   {
     path: '/',
-    name: 'Home',
+    redirect: '/home',
+    name: '',
     component: Home
+  }, {
+    path: '/home',
+    name: 'Home',
+    component: Home,
+    meta: {
+      keepAlive: true
+    }
+  }, {
+    path: '/image_fall',
+    name: 'ImageFall',
+    component: ImageFall
   }
 ]
 
