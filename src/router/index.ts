@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router'
 import Home from '@/views/Home.vue'
 import ImageFall from '@/views/ImageFall.vue'
+import Robot from '@/views/Robot.vue'
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -19,6 +20,10 @@ const routes: Array<RouteRecordRaw> = [
     path: '/image_fall',
     name: 'ImageFall',
     component: ImageFall
+  }, {
+    path: '/robot',
+    name: 'Robot',
+    component: Robot
   }
 ]
 

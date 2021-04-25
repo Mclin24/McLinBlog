@@ -174,6 +174,9 @@ export default defineComponent({
     background-position: center 0;
     -webkit-background-size: cover;
     -o-background-size: cover;
+    ::after{
+        clear: both;
+    }
     .side {
         padding: 5px;
         width: 40px;
@@ -210,12 +213,13 @@ export default defineComponent({
         background: #5d4a61;
         opacity: 0.9;
         .iconclose {
-            font-size: 30px;
+            font-size: 26px;
             color: white;
             cursor: pointer;
             position: absolute;
             right: 20px;
             top: 20px;
+            display: block;
         }
         .sideBarTop {
             margin-top: 50px;

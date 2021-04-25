@@ -15,6 +15,7 @@
 	</div>
 </template>
 <script lang="ts">
+/* eslint-disable */
 import { defineComponent } from 'vue'
 export default defineComponent({
 	data() {
@@ -57,6 +58,7 @@ export default defineComponent({
 			const firstQuestion = "vue 的 $nextStick原理，为啥要有这个方法"
 			const secondQuestion = "vue data里的数组，更新下标以及length长度， 页面会不会刷新， 为啥"
 			const thirdQuestion = "单点登录"
+			const fouthQuestion = "BFC 块级格式化上下文"
 		}
 	}
 })

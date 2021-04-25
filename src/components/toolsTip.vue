@@ -37,7 +37,7 @@ export default defineComponent({
     right: 0;
     opacity: 0;
     transition: 300ms;
-    z-index: 1000;
+    z-index: 10;
   }
   .rightTip {
     right: 0;
