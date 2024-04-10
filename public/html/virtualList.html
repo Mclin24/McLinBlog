@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+.view-container {
+    width: 400px;
+    height: 600px;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border: 1px solid red;
+}
+.virtual-content-container {
+    width: 100%;
+    height: 100%;
+    overflow-y: auto;
+}
+.virtual-item-list {
+    width: 100%;
+}
+.virtual-item {
+    height: 120px;
+    width: 100%;
+    background-color: lightpink;
+    border-bottom: 1px solid lightblue;
+    text-align: center;
+    line-height: 120px;
+}
+</style>
+
+<body>
+    <div class="view-container">
+        <div class="virtual-content-container">
+            <div class="virtual-item-list">
+                <!-- <div class="virtual-item"></div> -->
+            </div>
+        </div>
+    </div>
+</body>
+<script>
+    // 定义一个虚拟滚动的类，构造函数接收两个参数，一个是滚动的容器DOM，一个是滚动的列表DOM
+    class virtualScroll {
+        constructor(virtualContaier, virtualList) {
+            this.contaierDom = document.querySelector(virtualContaier)
+            this.listDom = document.querySelector(virtualList)
+            this.startIndex = 0
+            this.lastIndex = 0
+            this.endIndex = 0
+            this.sourceData = []
+            this.showData = []
+            this.showItemCount = 0
+            this.itemHeight = 120
+        }
+        init() {
+            this.subscribeEvent()
+            this.sourceData = this.getData(20)
+            this.showItemCount = Math.ceil(this.contaierDom.offsetHeight / this.itemHeight) + 1 // 可视区最多显示的数据条数
+            const showData = this.sourceData.slice(this.startIndex, this.showItemCount)
+            this.render(showData)
+        }
+        render(showData) {
+            const temp = showData.map(item => {
+                return `<div class="virtual-item">${item}</div>`
+            }).join('')
+            this.listDom.innerHTML = temp
+            this.computedVirtualListStyle()
+        }
+        subscribeEvent() {
+            this.contaierDom.addEventListener('scroll', this.rafThrottle(this.handleScroll.bind(this)))
+        }
+        handleScroll(e) {
+            const scrollTop = e.target.scrollTop
+            this.startIndex = Math.floor(scrollTop / this.itemHeight)
+            if (this.lastIndex === this.startIndex) return
+            this.lastIndex = this.startIndex
+            const end = this.startIndex + this.showItemCount
+            if (end >= this.sourceData.length) {
+                this.sourceData = this.getData(this.showItemCount)
+            }
+            this.endIndex = this.sourceData[end] ? end : this.sourceData.length
+            this.showData = this.sourceData.slice(this.startIndex, this.endIndex)
+            this.render(this.showData)
+        }
+        computedVirtualListStyle() {
+            const listHeight = (this.sourceData.length - this.startIndex) * this.itemHeight
+            const transform = `translate3d(0, ${this.startIndex * this.itemHeight}px, 0)`
+            this.listDom.style.height = listHeight + 'px'
+            this.listDom.style.transform = transform
+        }
+        getData(count) {
+            let that = this
+            let arrLength = that.sourceData.length + count
+            const data = new Array(arrLength).fill(0).map((_, i) => i)
+            return data
+            // return new Promise((resolve) => {
+            //     setTimeout(() =>  {
+            //         const data = new Array(arrLength).fill(0).map((_, i) => i)
+            //         resolve(data)
+            //     }, 2000)
+            // })
+        }
+        rafThrottle(fn) { // 节流函数
+            let lock = false
+            return function(...args) {
+                window.requestAnimationFrame(() =>  {
+                    if (lock) return
+                    lock = true
+                    fn.apply(this, args)
+                    lock = false
+                })
+            }
+        }
+    }
+    const virtualTest = new virtualScroll('.virtual-content-container', '.virtual-item-list')
+    virtualTest.init()
+</script>
+</html>

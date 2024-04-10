@@ -22,5 +22,15 @@ module.exports = {
 		config.resolve.alias
 			.set('@views',resolve('src/views'))
 			.set('@components',resolve('src/components'))
+		// config.module
+		// 	.rule('tsparticles')
+		// 	.test(/\.js$/)
+		// 	.include
+		// 	.add(resolve('node_modules/@tsparticles'))
+		// 	.add(resolve('node_modules/vue3-particles'))
+		// 	.add(resolve('node_modules/particles.vue3'))
+		// 	.end()
+		// 	.use('file-loader')
+		// 	.loader('file-loader')
 	}
 }

@@ -1,31 +1,32 @@
 class MyPromise {
-    callBacks = []
-    state = "pending"
+    callBacks = [] as any[]
+    state = 'pending'
     value = null
     err = null
-    constructor (fn) {
+    constructor(fn: Function) {
         fn(this.resolve.bind(this), this.reject.bind(this))
     }
-    resolve (value) {
-        this.state = "fullfilled"
+    resolve(value: any) {
+        this.state = 'fullfilled'
         this.value = value
-        this.callBacks.forEach(fn => fn(value))
+        this.callBacks.forEach((fn) => fn(value))
     }
-    then (onFullFilled) { // 参数是调用了then方法传递的回调函数
-        if (this.state === "pending") {
+    then(onFullFilled: Function) {
+        // 参数是调用了then方法传递的回调函数
+        if (this.state === 'pending') {
             this.callBacks.push(onFullFilled)
         } else {
             onFullFilled(this.value)
         }
         return this
     }
-    reject (err) {
-        this.state = "rejected"
+    reject(err: any) {
+        this.state = 'rejected'
         this.err = err
-        this.callBacks.forEach(fn => fn(err))
+        this.callBacks.forEach((fn) => fn(err))
     }
-    catch (rejected) {
-        if (this.state === "pending") {
+    catch(rejected: Function) {
+        if (this.state === 'pending') {
             this.callBacks.push(rejected)
         } else {
             rejected(this.err)
@@ -33,23 +34,17 @@ class MyPromise {
         return this
     }
 }
-new MyPromise(function (resolve, reject) {
-    console.log("my promise")
-    resolve("resolve")
+new MyPromise(function (resolve: Function, reject: Function) {
+    console.log('my promise')
+    resolve('resolve')
     reject(null)
     // setTimeout(() => {
     //     resolve("resolve")
     // }, 2000)
-}).then((res) => {
-    console.log(res)
-}).catch((err) => {
-    console.log(err)
 })
-
-const data = {
-    a: 1,
-    b: 2
-}
-Object.defineProperties(data, {
-    
-})
+    .then((res: any) => {
+        console.log(res)
+    })
+    .catch((err: any) => {
+        console.log(err)
+    })

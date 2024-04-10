@@ -14,11 +14,35 @@
     </noscript>
     <div id="app"></div>
     <!-- built files will be auto injected -->
+    <script>
+      // if ('serviceWorker' in navigator) {
+      //   window.addEventListener('load', function () {
+      //       // 所以Service Worker只是一个挂在navigator对象上的HTML5 API而已
+      //       navigator.serviceWorker.register('/sw.js').then(function (registration) {
+      //           console.log('我注册成功了666');
+      //       }, function (err) {
+      //           console.log('我注册失败了');
+      //       });
+      //   });
+      // }
+    </script>
   </body>
 </html>
 <style>
   * {
     margin: 0;
     padding: 0;
+  }
+  #app {
+    min-width: 1200px;
+    height: 100vh;
+  }
+  body {
+    margin: 0;
+    padding: 0;
+  }
+
+  div {
+    box-sizing: border-box;
   }
 </style>

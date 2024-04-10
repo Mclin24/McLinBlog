@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>回流重绘</title>
+</head>
+<style>
+    .container {
+        position: relative;
+    }
+    .ball {
+        background-color: red;
+        width: 100px;
+        height: 100px;
+        border-radius: 50%;
+        margin-top: 50px;
+    }
+    .ball1 {
+        animation: ball1 1s alternate infinite ease-in-out;
+    }
+    .ball2 {
+        position: absolute;
+        left: 0;
+        animation: ball2 1s alternate infinite ease-in-out;
+    }
+    @keyframes ball1 {
+        to {
+            transform: translate(100px);
+        }
+    }
+    @keyframes ball2 {
+        to {
+            left: 100px;
+        }
+    }
+</style>
+<body>
+    <div class="container">
+        <div>
+            <button type="button" id="btn">死循环</button>
+        </div>
+        <div class="ball1 ball">
+    
+        </div>
+        <div class="ball2 ball">
+    
+        </div>
+    </div>
+</body>
+<script>
+    const btn = document.getElementById('btn')
+    btn.addEventListener('click', function() {
+        delay(5000)
+    })
+    function delay(time) {
+        const start = Date.now()
+        while(Date.now() - start < time) {}
+    }
+</script>
+</html>
