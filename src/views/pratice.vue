@@ -1,10 +1,11 @@
 <template>
     <div class="ImageFall">
-        相册页面{{ enterCount }}
+        <!-- 相册页面{{ enterCount }}
         <button @click="handleClick">按钮</button>
         <div class="triAngel">三角形</div>
         <div v-for="(item, index) in testArr" :key="index">{{ item }}</div>
-        <button @click="handleTest">点击测试</button>
+        <button @click="handleTest">点击测试</button> -->
+        <button class="btn">按钮</button>
     </div>
 </template>
 <script lang="ts">
@@ -26,8 +27,11 @@ export default defineComponent({
         // const result2 = this.reduceFlat(this.arr)
         // console.log(result)
         // console.log(result2)
-        let lazyMan = (name: string) => new _LazyMan(name)
-        lazyMan('mclin24').sleepFirst(3).eat('she')
+        // let lazyMan = (name: string) => new _LazyMan(name)
+        // lazyMan('mclin24').sleepFirst(3).eat('she')
+    },
+    mounted() {
+        this.triggerEvent()
     },
     methods: {
         Count() {
@@ -88,6 +92,32 @@ export default defineComponent({
         handleTest() {
             this.testArr[0] = 0
             // this.testArr.push(6)
+        },
+        subscribeEventByDom(domTarget: string) {
+            const dom: any = document.querySelector(domTarget)
+            console.log('🚀 ~ subscribeEventByDom ~ dom:', dom)
+            if (!dom) return
+            return new Proxy(dom, {
+                get(target: any, key: string) {
+                    if (!key.startsWith('wait')) {
+                        return target[key]
+                    }
+                    const event = key.replace('wait', '').toLowerCase()
+                    return new Promise((resolve) => {
+                        target.addEventListener(event, resolve, { once: true })
+                    })
+                }
+            })
+        },
+
+        async triggerEvent(eventLimit: number = 0) {
+            const dom = this.subscribeEventByDom('.btn')
+            while (1) {
+                if (eventLimit >= 10) break
+                await dom.waitClick
+                eventLimit++
+                console.log('dom click')
+            }
         }
     }
 })
