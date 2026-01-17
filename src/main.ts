@@ -12,13 +12,13 @@ const pinia = createPinia()
 const mcApp = createApp(App)
 
 mcApp
-    .use(pinia)
-    .use(router)
-    .use(Particles, {
-        init: async (engine: any) => {
-            await loadFull(engine)
-        }
-    })
-    .component('ImageHover', ImageHover)
-    .component('ToolsTip', ToolsTip)
-    .mount('#app')
+   .use(pinia)
+   .use(router)
+   .use(Particles, {
+      init: async (engine: any) => {
+         await loadFull(engine)
+      }
+   })
+   .component('ImageHover', ImageHover)
+   .component('ToolsTip', ToolsTip)
+   .mount('#app')
