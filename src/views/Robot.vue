@@ -29,7 +29,7 @@
 <script setup lang="ts"></script>
 <style scoped lang="scss">
 @keyframes anim4 {
-    form {
+    from {
         top: -50px;
     }
     to {
@@ -37,7 +37,7 @@
     }
 }
 @keyframes anim3 {
-    form {
+    from {
         left: -100%;
     }
     to {
@@ -45,7 +45,7 @@
     }
 }
 @keyframes anim2 {
-    form {
+    from {
         bottom: -100%;
     }
     to {
@@ -53,7 +53,7 @@
     }
 }
 @keyframes anim1 {
-    form {
+    from {
         left: 30%;
         // width: 500px;
     }
